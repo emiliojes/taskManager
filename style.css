@@ -50,3 +50,9 @@ body {
   .dark-theme #task-list li {
     background: #444;
   }
+
+  .delete-btn {
+    cursor:pointer;
+    color: blue;
+    margin-left: 10px;
+  }
