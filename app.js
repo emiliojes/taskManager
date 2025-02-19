@@ -18,10 +18,10 @@ taskForm.addEventListener("submit", (event) => {
     li.textContent = task;
 
     const deleteButton = createButton("❌", "delete-btn");
-
-    //deleteButton.addEventListener("click", () => li.remove())
-
+    const editButton = createButton("✏️", "edit-btn");
+    
     li.appendChild(deleteButton)
+    li.appendChild(editButton);
     return li
     
   }
@@ -39,6 +39,8 @@ taskForm.addEventListener("submit", (event) => {
     //console.log(event.target);
     if (event.target.classList.contains("delete-btn")){
       deleteTask(event.target.parentElement)
+    } else if (event.target.classList.contains("edit-btn")){
+      editTask(event.target.parentElement)
     }
   })
  
@@ -49,7 +51,12 @@ taskForm.addEventListener("submit", (event) => {
     }
   }
 
-
+  function editTask(taskItem){
+    const newTask = prompt("Edita la tarea:", taskItem.firstChild.textContent)
+    if(newTask !== null){
+      taskItem.firstChild.textContent = newTask;
+    }
+  }
 
   
 
