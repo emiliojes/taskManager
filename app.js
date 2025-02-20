@@ -2,16 +2,21 @@ const taskForm = document.getElementById("task-form");
 
 const taskList = document.getElementById("task-list");
 
+loadTasks();
+
 taskForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const taskInput = document.getElementById("task-input");
   const task = taskInput.value;
-  console.log(task)
+  //console.log(task)
   if(task) {
     taskList.appendChild(createTaskElement(task))
+    storeTaskInLocalStorage(task)
     taskInput.value = '';
   }
+
+})
 
   function createTaskElement(task){
     const li = document.createElement("li")
@@ -42,7 +47,7 @@ taskForm.addEventListener("submit", (event) => {
     } else if (event.target.classList.contains("edit-btn")){
       editTask(event.target.parentElement)
     }
-  })
+
  
 
   function deleteTask (taskItem) {
@@ -62,3 +67,17 @@ taskForm.addEventListener("submit", (event) => {
 
   
 });
+
+function storeTaskInLocalStorage(task){
+  const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+  tasks.push(task);
+  localStorage.setItem("tasks", JSON.stringify(tasks))
+}
+
+
+function loadTasks(){
+  const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+  tasks.forEach((task) => {
+    taskList.appendChild(createTaskElement(task))
+  })
+}
