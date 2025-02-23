@@ -5,7 +5,7 @@ A simple application to efficiently manage your tasks.
 
 ## 🚀 **Access the Application**
 You can try the live app via **GitHub Pages**:  
-👉 <a href="https://emiliojes.github.io/taskManager/" target="_blank">Task Manager</a>
+👉 <a href="https://emiliojes.github.io/taskManager/" target="_blank" rel="noopener noreferrer">Task Manager</a>
 
 ## 📌 **Features**
 ✅ Add tasks 📌  
