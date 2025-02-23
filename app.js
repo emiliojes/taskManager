@@ -60,6 +60,7 @@ taskForm.addEventListener("submit", (event) => {
     const newTask = prompt("Edita la tarea:", taskItem.firstChild.textContent)
     if(newTask !== null){
       taskItem.firstChild.textContent = newTask;
+      updateLocalStorage()
     }
   }
 
@@ -80,4 +81,12 @@ function loadTasks(){
   tasks.forEach((task) => {
     taskList.appendChild(createTaskElement(task))
   })
+}
+
+function updateLocalStorage(){
+  const tasks = Array.from(taskList.querySelectorAll("li")).map((li) => li.firstChild.textContent);
+
+  localStorage.setItem("tasks",JSON.stringify(tasks))
+  console.log(tasks)
+
 }
