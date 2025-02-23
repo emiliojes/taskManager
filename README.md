@@ -12,6 +12,11 @@ You can try the live app via **GitHub Pages**:
 ✅ Edit tasks ✏️  
 ✅ Delete tasks ❌  
 ✅ Auto-save tasks using `localStorage` 💾  
+✅ **Dark Mode toggle 🌙** (Theme preference is saved in `localStorage`) 
+
+## 🎨 **Dark Mode Feature**
+- Click the **"Toggle Theme"** button to switch between **Light Mode** and **Dark Mode**.  
+- Your preference is saved in `localStorage`, so it remains the same when you revisit the app. 
 
 ## 🛠️ **Technologies Used**
 - HTML5
