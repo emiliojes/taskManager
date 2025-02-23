@@ -8,12 +8,13 @@ taskForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const taskInput = document.getElementById("task-input");
-  const task = taskInput.value;
+  const task = taskInput.value.trim();
   //console.log(task)
   if(task) {
-    taskList.appendChild(createTaskElement(task))
+    const taskElement = createTaskElement(task)
+    taskList.appendChild(taskElement)
     storeTaskInLocalStorage(task)
-    taskInput.value = '';
+    taskInput.value = "";
   }
 
 })
@@ -48,26 +49,28 @@ taskForm.addEventListener("submit", (event) => {
       editTask(event.target.parentElement)
     }
 
- 
-
-  function deleteTask (taskItem) {
-    if(confirm("Are you sure, you want to delete this item?")){
-      taskItem.remove()
-    }
-  }
-
-  function editTask(taskItem){
-    const newTask = prompt("Edita la tarea:", taskItem.firstChild.textContent)
-    if(newTask !== null){
-      taskItem.firstChild.textContent = newTask;
-      updateLocalStorage()
-    }
-  }
-
   
 
   
 });
+
+
+function deleteTask (taskItem) {
+  const taskText = taskItem.firstChild.textContent.trim();
+  if(confirm("Are you sure, you want to delete this item?")){
+    taskItem.remove()
+    removeTaskFromLocalStorage(taskText)
+  }
+}
+
+function editTask(taskItem){
+  const taskText = taskItem.firstChild.textContent.trim();
+  const newTask = prompt("Edit task:", taskText)?.trim();
+  if(newTask && newTask !== taskText){
+    taskItem.firstChild.textContent = newTask;
+    updateLocalStorage()
+  }
+}
 
 function storeTaskInLocalStorage(task){
   const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
@@ -79,14 +82,20 @@ function storeTaskInLocalStorage(task){
 function loadTasks(){
   const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
   tasks.forEach((task) => {
-    taskList.appendChild(createTaskElement(task))
+    taskList.appendChild(createTaskElement(task.trim()))
   })
 }
 
 function updateLocalStorage(){
-  const tasks = Array.from(taskList.querySelectorAll("li")).map((li) => li.firstChild.textContent);
+  const tasks = Array.from(taskList.querySelectorAll("li")).map((li) => li.firstChild.textContent.trim());
 
   localStorage.setItem("tasks",JSON.stringify(tasks))
-  console.log(tasks)
+  //console.log(tasks)
 
+}
+
+function removeTaskFromLocalStorage(taskText){
+  let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+  tasks = tasks.filter((task) => task.trim() !== taskText);
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
